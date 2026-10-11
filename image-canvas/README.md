@@ -73,3 +73,7 @@ GitHub 仅保存源码，不保存私人素材、提示词、运行记录或服�
 `canvas_list_projects` → `canvas_get_board` / `canvas_list_tasks`（可指定 project_id） → `canvas_claim_task` → `canvas_read_asset` → 会话内置 imagegen → `canvas_complete_image`。
 
 任务只会回传到所属项目。失败调用 `canvas_fail_task`。不得使用占位图或伪造成功。
+
+### 画布界面更新
+
+图片下方展示该图的生成提示词，长提示词可滚动阅读和选中文字。上传素材没有生成提示词时会明确标注。拖动输出端口到空白处，可选择创建提示词、文字或上传图片，并自动连接原模块。项目管理收进左上角下拉菜单；当前项目节点列表默认隐藏，点击顶部“节点”按钮打开。编辑面板仅选中模块、连线或分组后显示，点击空白或关闭按钮收起。

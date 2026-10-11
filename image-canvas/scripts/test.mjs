@@ -18,6 +18,7 @@ assert.equal((await req('/api/mutate',{op:'note',prompt:'note',title:'note'},{Or
 const png='iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jR8sAAAAASUVORK5CYII=';
 let b=await api({op:'upload',name:'参考图.png',base64:png,x:20,y:30});const ref=b.nodes[0];
 assert.equal((await mcp('canvas_read_asset',{asset_id:ref.asset})).content[0].data,png);
+assert.equal((await mcp('canvas_create_task',{task_id:'mcp_test',title:'测试',prompt:'白色陶瓷杯',ratio:'1:1'})).isError,undefined);await api({op:'delete',ids:['mcp_test']});
 const input={op:'generate',id:'test_task',title:'产品摄影',prompt:'将图1背景换为白色，产品不变',ratio:'16:9',refs:[ref.asset],x:400,y:20};
 await api(input);await api(input);b=await(await req('/api/board')).json();assert.equal(b.nodes.filter(n=>n.id==='test_task').length,1);
 const claims=await Promise.all([mcp('canvas_claim_task',{task_id:'test_task'}),mcp('canvas_claim_task',{task_id:'test_task'})]);assert.equal(claims.filter(c=>!c.isError).length,1);const lease=claims.find(c=>!c.isError).structuredContent.lease_token;
